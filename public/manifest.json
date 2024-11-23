@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "Leetcode Helper",
+  "version": "1.0",
+  "description": "Helper extension to solve Leetcode",
+  "browser_action": {
+    "default_popup": "index.html"
+  },
+  "permissions": ["activeTab", "tabs", "storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://leetcode.com/problems/*"],
+      "js": ["libs/browser-polyfill.min.js", "content.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false,
+    "type": "module"
+  }
+}
+

@@ -50,13 +50,13 @@ python backend/app.py
 
 2. Click **Load Temporary Add-on** ➕.
 
-3. Select the `manifest.json` file located in the root of the project directory.
+3. Select the `manifest.json` file located in the "build" directory.
 
 ### 7️. Use the Extension
 
 1. Open a LeetCode problem page.
 2. Click on the extension icon in the browser toolbar.
-3. Follow the prompts to extract problem details and view AI-generated solutions.
+3. Click the "Help Me" button.
 
 ## 🖥️ Technologies Used
 

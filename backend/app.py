@@ -51,6 +51,10 @@ def call_llm(problem_statement, code_snippet):
     print("#########Chat Response:\n",chat_response.choices[0].message.content)
     return chat_response.choices[0].message.content
 
+@app.route('/')
+def home():
+    return {"message": "Hello, World!"}, 200
+
 @app.route('/solve', methods=['POST'])
 def solve():  # put application's code here
     request_data = request.get_json()

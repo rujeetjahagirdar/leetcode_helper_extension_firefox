@@ -14,10 +14,11 @@ def call_llm(problem_statement, code_snippet):
     prompt = """For following coding problem, give me most efficient but simple to understand
               code considering all the edge cases. Also mention two lines in comment at bottom of the code
               with first line as run time complexity and second line with space complexity like 
-              Runtime Complexity: 
-              Space Complexity: . 
+              #Runtime Complexity: [mention runtime complexity of solution here]
+              #Space Complexity: [mention space complexity of solution here].
               ALSO make sure to
               not output any additional output or explanation so that I can directly execute the code output as it is.
+              Also make sure to not use any print statements.
               Problem:{}
               Code Snippet: {}.""".format(problem_statement, code_snippet)
 
@@ -42,6 +43,7 @@ def call_llm(problem_statement, code_snippet):
     chat_response = client.chat.completions.create(
         model="meta-llama/Llama-3.2-3B-Instruct",
         messages=[
+            {"role": "developer", "content": "You are an expert Software Developer."},
             {"role": "user", "content": prompt}
         ],
         temperature=0.5,

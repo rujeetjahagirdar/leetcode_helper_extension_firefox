@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Popup.css";
 import browser from "webextension-polyfill"
 
 function App() {
+    const [isLoading, setIsLoading] = useState(false);
     const handleSolveClick = () => {
         console.log("Button CLicked!!!!!!");
+        setIsLoading(true);
         browser.runtime.sendMessage({action: "extractData"}, (response) => {
             console.log("Data Extracted", response);
 
             fetch("http://localhost:5000/solve", {
-            // fetch("https://leetcode-helper-extension-firefox.onrender.com:5000/solve", {
+            // fetch("https://leetcode-helper-extension-firefox.onrender.com/solve", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(response)
@@ -21,13 +23,18 @@ function App() {
                         console.log("Updating Data....");
                     });
                 })
-            .catch(error => console.log("Error: ",error));
+            .catch(error => console.log("Error: ",error))
+            .finally(() => {
+                    setIsLoading(false);
+                });
         });
     };
     return (
         <div className="popup">
             <h1>Leetcode Helper</h1>
-            <button onClick={handleSolveClick} className="solve_button">Help Me!!!</button>
+            <button onClick={handleSolveClick} className="solve_button" disabled={isLoading}>
+                {isLoading ? "Processing..." : "Help Me!!!"}
+            </button>
         </div>
     )
 }

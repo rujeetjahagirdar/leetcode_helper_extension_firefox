@@ -22,15 +22,30 @@ def call_llm(problem_statement, code_snippet):
               Code Snippet: {}.""".format(problem_statement, code_snippet)
 
     print("####Promt is:\n", prompt)
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    ############# ChatGPT ###############
+    # client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+    # chat_response = client.chat.completions.create(
+    #     model="gpt-4-turbo",
+    #     messages=[
+    #         {"role": "user", "content": prompt}
+    #     ],
+    #     temperature=0.5,
+    #     top_p=1
+    # )
+
+    ################# Hugging face ################
+    client = OpenAI(
+        base_url="https://api-inference.huggingface.co/v1/",
+        api_key=os.getenv("HF_API_KEY")
+    )
     chat_response = client.chat.completions.create(
-        model="gpt-4-turbo",
+        model="meta-llama/Llama-3.2-3B-Instruct",
         messages=[
             {"role": "user", "content": prompt}
         ],
         temperature=0.5,
-        top_p=1
+        top_p=0.7
     )
 
     print("#########Chat Response:\n",chat_response.choices[0].message.content)

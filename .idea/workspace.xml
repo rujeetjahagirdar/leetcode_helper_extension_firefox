@@ -4,18 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ea849c0-3bff-464b-8b1b-4ccf4923d5d0" name="Changes" comment="updated prompt&#10;updated loading indicator">
+    <list default="true" id="8ea849c0-3bff-464b-8b1b-4ccf4923d5d0" name="Changes" comment="updated app.py for host and port">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/background.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/background.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/content.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/content.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Popup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +50,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "disable.download.node.interpreter.editor.notification": "true",
-    "git-widget-placeholder": "multi-step-output",
+    "git-widget-placeholder": "free__llm__integration",
     "last_opened_file_path": "/home/rujeet/Projects/leetcode_helper_extension_bkp",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -66,7 +59,7 @@
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/home/rujeet/.local/share/JetBrains/Toolbox/apps/pycharm-professional/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "ts.external.directory.path": "/home/rujeet/.local/share/JetBrains/Toolbox/apps/webstorm/plugins/javascript-plugin/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -117,7 +110,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.app" />
-        <item itemvalue="Python.app" />
       </list>
     </recent_temporary>
   </component>
@@ -143,9 +135,7 @@
       <workItem from="1732312481658" duration="6427000" />
       <workItem from="1732325649101" duration="149000" />
       <workItem from="1733801983857" duration="2575000" />
-      <workItem from="1737250199998" duration="14357000" />
-      <workItem from="1737272199367" duration="1021000" />
-      <workItem from="1737319073311" duration="37680000" />
+      <workItem from="1737250199998" duration="11913000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;front react&quot;">
       <option name="closed" value="true" />
@@ -219,15 +209,7 @@
       <option name="project" value="LOCAL" />
       <updated>1737261862604</updated>
     </task>
-    <task id="LOCAL-00010" summary="updated prompt&#10;updated loading indicator">
-      <option name="closed" value="true" />
-      <created>1737264814023</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1737264814023</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -268,8 +250,7 @@
     <MESSAGE value="removed unnecessary imports" />
     <MESSAGE value="updated requirements.txt" />
     <MESSAGE value="updated app.py for host and port" />
-    <MESSAGE value="updated prompt&#10;updated loading indicator" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated prompt&#10;updated loading indicator" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated app.py for host and port" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/leetcode_helper_extension$app.coverage" NAME="app Coverage Results" MODIFIED="1733802894395" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />

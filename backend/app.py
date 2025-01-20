@@ -25,10 +25,8 @@ Give code for above step by step algorithm and output it in one continuous strin
 Also make sure at the bottom of the code solution provide two comment lines describing complexities as follows:
 #Runtime Complexity: [mention run-time complexity here]
 #Space Complexity: [mention space complexity here].
-Also make sure to use tab instead of spaces of code indentation.
-
 ALSO make sure not to provide any additional comments or notes, such that I can directly copy code and execute that.
-Give output in json form with keys \"intuition\", \"algorithm\", \"code\" enclosed in curly braces like {{\"intuition\":[content of intuition section here],\"algorithm\":[content of algorithm section here],\"code\":[content of code section here]}}.
+Give output in json form with keys \"intuition\", \"algorithm\", \"code\". Make sure to strictly follow this format {{\"intuition\":[content of intuition section here],\"algorithm\":[content of algorithm section here],\"code\":[content of code section here]}}.
 Make sure that content in every section is properly formatted to be easy to read and there is not new line in between sections
  and also the entire output is in json parsable form.
 Problem Statement:{}

@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ea849c0-3bff-464b-8b1b-4ccf4923d5d0" name="Changes" comment="updated requirements.txt">
+    <list default="true" id="8ea849c0-3bff-464b-8b1b-4ccf4923d5d0" name="Changes" comment="updated prompt">
+      <change afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/content.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/content.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -138,7 +139,7 @@
       <workItem from="1733801983857" duration="2575000" />
       <workItem from="1737250199998" duration="14357000" />
       <workItem from="1737272199367" duration="1021000" />
-      <workItem from="1737319073311" duration="41635000" />
+      <workItem from="1737319073311" duration="47371000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;front react&quot;">
       <option name="closed" value="true" />
@@ -236,7 +237,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737406899585</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="updated prompt">
+      <option name="closed" value="true" />
+      <created>1737409716397</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1737409716397</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,7 +288,8 @@
     <MESSAGE value="updated prompt&#10;updated loading indicator" />
     <MESSAGE value="added multi-stage-solution feature&#10;added tailwindcss&#10;minor UI changes" />
     <MESSAGE value="updated requirements.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated requirements.txt" />
+    <MESSAGE value="updated prompt" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated prompt" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/leetcode_helper_extension$app.coverage" NAME="app Coverage Results" MODIFIED="1733802894395" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />

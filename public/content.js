@@ -30,7 +30,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 
         // Clean up the output
-        let outputJson = output.replace(/\n/g, '\\\\n');
+        let outputJson = output.replace(/\n/g, "\\\\n");
         outputJson = JSON.parse(outputJson);
 
 
@@ -87,6 +87,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
             const sections = [
                 { title: "Original Output", content: output},
+                { title: "outputJson Output", content: outputJson},
                 { title: "Problem Intuition", content: outputJson.intuition},
                 { title: "Algorithm", content: outputJson.algorithm},
                 { title: "Code Solution", content: outputJson.code }

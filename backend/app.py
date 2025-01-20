@@ -29,7 +29,8 @@ Also make sure to use tab instead of spaces of code indentation.
 
 ALSO make sure not to provide any additional comments or notes, such that I can directly copy code and execute that.
 Give output in json form with keys \"intuition\", \"algorithm\", \"code\" enclosed in curly braces like {{\"intuition\":[content of intuition section here],\"algorithm\":[content of algorithm section here],\"code\":[content of code section here]}}.
-Make sure that every section is properly formatted to be easy to read and also is in json parsable form.
+Make sure that content in every section is properly formatted to be easy to read and there is not new line in between sections
+ and also the entire output is in json parsable form.
 Problem Statement:{}
 Code Snippet: {}""".format(problem_statement, code_snippet)
 
@@ -58,7 +59,8 @@ Code Snippet: {}""".format(problem_statement, code_snippet)
             {"role": "user", "content": prompt}
         ],
         temperature=0.5,
-        top_p=0.7
+        top_p=0.7,
+        seed=30
     )
 
     print("#########Chat Response:\n",chat_response.choices[0].message.content)

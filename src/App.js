@@ -10,8 +10,8 @@ function App() {
         browser.runtime.sendMessage({action: "extractData"}, (response) => {
             console.log("Data Extracted", response);
 
-            // fetch("http://localhost:5000/solve", {
-            fetch("https://leetcode-helper-extension-firefox.onrender.com/solve", {
+            fetch("http://localhost:5000/solve", {
+            // fetch("https://leetcode-helper-extension-firefox.onrender.com/solve", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(response)

@@ -58,7 +58,6 @@ Code Snippet: {}""".format(problem_statement, code_snippet)
         ],
         temperature=0.5,
         top_p=0.7,
-        seed=30
     )
 
     print("#########Chat Response:\n",chat_response.choices[0].message.content)

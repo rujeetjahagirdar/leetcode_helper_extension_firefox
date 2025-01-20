@@ -4,18 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ea849c0-3bff-464b-8b1b-4ccf4923d5d0" name="Changes" comment="updated prompt&#10;updated loading indicator">
+    <list default="true" id="8ea849c0-3bff-464b-8b1b-4ccf4923d5d0" name="Changes" comment="added multi-stage-solution feature&#10;added tailwindcss&#10;minor UI changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/background.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/background.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/content.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/content.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Popup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +137,7 @@
       <workItem from="1733801983857" duration="2575000" />
       <workItem from="1737250199998" duration="14357000" />
       <workItem from="1737272199367" duration="1021000" />
-      <workItem from="1737319073311" duration="37680000" />
+      <workItem from="1737319073311" duration="38950000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;front react&quot;">
       <option name="closed" value="true" />
@@ -227,7 +219,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737264814023</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="added multi-stage-solution feature&#10;added tailwindcss&#10;minor UI changes">
+      <option name="closed" value="true" />
+      <created>1737405671900</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1737405671900</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,7 +269,8 @@
     <MESSAGE value="updated requirements.txt" />
     <MESSAGE value="updated app.py for host and port" />
     <MESSAGE value="updated prompt&#10;updated loading indicator" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated prompt&#10;updated loading indicator" />
+    <MESSAGE value="added multi-stage-solution feature&#10;added tailwindcss&#10;minor UI changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="added multi-stage-solution feature&#10;added tailwindcss&#10;minor UI changes" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/leetcode_helper_extension$app.coverage" NAME="app Coverage Results" MODIFIED="1733802894395" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />

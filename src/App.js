@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./Popup.css";
-import browser from "webextension-polyfill"
+import browser from "webextension-polyfill";
+import './index.css';
 
 function App() {
     const [isLoading, setIsLoading] = useState(false);
@@ -30,13 +30,18 @@ function App() {
         });
     };
     return (
-        <div className="popup">
-            <h1>Leetcode Helper</h1>
-            <button onClick={handleSolveClick} className="solve_button" disabled={isLoading}>
+        <div className="min-w-[300px] max-w-[500px] p-6 bg-gray-100 border border-gray-300 rounded-lg shadow-lg text-center">
+            <h1 className="text-2xl font-semibold text-gray-800 mb-4">Leetcode Helper</h1>
+            <button
+                onClick={handleSolveClick}
+                className={`w-full py-3 px-6 rounded-lg text-white font-medium transition-all 
+                    ${isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700'}`}
+                disabled={isLoading}
+            >
                 {isLoading ? "Processing..." : "Help Me!!!"}
             </button>
         </div>
-    )
+    );
 }
 
 export default App;

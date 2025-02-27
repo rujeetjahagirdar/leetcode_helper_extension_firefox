@@ -111,6 +111,8 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log("UpdateData action received in content script.");
 
     const output = message.outputCode;
+    console.log("output= ", output);
+    console.log(output.intuition);
     if (!output) {
       console.error("Received empty output.");
       return;

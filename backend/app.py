@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-
+import json
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from openai import OpenAI
@@ -56,7 +56,7 @@ def call_llm(problem_statement, code_snippet, api, model):
     Code Snippet: {}""".format(problem_statement, code_snippet)
 
 
-    print("####Promt is:\n", prompt)
+    # print("####Promt is:\n", prompt)
     ############# ChatGPT ###############
     # client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
@@ -80,14 +80,14 @@ def call_llm(problem_statement, code_snippet, api, model):
         # model="meta-llama/Llama-3.2-3B-Instruct",
         model=model,
         messages=[
-            {"role": "system", "content": "You are an expert Software Developer."},
+            {"role": "system", "content": "You are an expert Software Developer. Follow the user’s instructions exactly without adding any extra commentary or deviating from the prompt"},
             {"role": "user", "content": prompt}
         ],
         temperature=0.0,
         top_p=0.7,
     )
 
-    print("#########Chat Response:\n",chat_response.choices[0].message.content)
+    # print("#########Chat Response:\n",chat_response.choices[0].message.content)
     return chat_response.choices[0].message.content
 
 @app.route('/')
@@ -114,10 +114,14 @@ def solve():  # put application's code here
     #return code retunred by openai api
 
     output_code = call_llm(problemStatement, codeSnippet, txt_api_key, modelSelection)
-
-
-    return jsonify({"status":'Success', 'outputCode':output_code})
+    output_code_formatted = output_code.replace('\n', '\\n')
+    print(output_code_formatted)
+    response_json = json.loads(output_code_formatted)
+    encoded_code = base64.b64encode(response_json['code'].encode("utf-8")).decode("utf-8")
+    response_json['code']=encoded_code
+    print(response_json)
+    return jsonify({"status":'Success', 'outputCode':response_json})
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='5000')
+    app.run(host='0.0.0.0', port='5000', debug=True)

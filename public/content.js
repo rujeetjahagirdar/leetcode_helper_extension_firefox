@@ -112,21 +112,19 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     const output = message.outputCode;
     console.log("output= ", output);
+    console.log(typeof(output));
     console.log(output.intuition);
+    console.log(output.algorithm);
+    console.log(output.code);
+    console.log(atob(output.code));
     if (!output) {
       console.error("Received empty output.");
       return;
     }
 
-    // Clean and parse the output JSON
-    let outputJsonStr = output.replace(/\n/g, "\\\\n");
-    let outputJson;
-    try {
-      outputJson = JSON.parse(outputJsonStr);
-    } catch (error) {
-      console.error("Error parsing output JSON:", error);
-      return;
-    }
+
+    let outputJson = output;
+    outputJson.code = atob(outputJson.code);
 
     // Remove any existing widget before creating a new one
     const existingWidget = document.getElementById("output-widget");
@@ -137,4 +135,3 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     createWidget(output, outputJson);
   }
 });
-

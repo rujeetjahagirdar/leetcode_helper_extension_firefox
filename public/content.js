@@ -1,4 +1,5 @@
 // Content script loaded on the current URL
+
 console.log("Content script loaded on", window.location.href);
 
 /**
@@ -134,3 +135,4 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     createWidget(output, outputJson);
   }
 });
+

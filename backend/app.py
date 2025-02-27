@@ -1,7 +1,5 @@
 import os
 from dotenv import load_dotenv
-import json
-import re
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -69,9 +67,7 @@ Code Snippet: {}""".format(problem_statement, code_snippet)
     )
 
     print("#########Chat Response:\n",chat_response.choices[0].message.content)
-
     return chat_response.choices[0].message.content
-    # return res
 
 @app.route('/')
 def home():
@@ -103,4 +99,4 @@ def solve():  # put application's code here
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='5000', debug=True)
+    app.run(host='0.0.0.0', port='5000')

@@ -1,3 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.popup {
+    font-family: Arial, sans-serif;
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+}
+
+.solve-button {
+    background-color: #0078d4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.solve-button:hover {
+    background-color: #005bb5;
+}

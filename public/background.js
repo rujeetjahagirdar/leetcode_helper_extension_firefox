@@ -1,9 +1,6 @@
-// Import browser polyfill for cross-browser compatibility
-// Improvement: Ensure compatibility with both Chrome and Firefox
 // import browser from "webextension-polyfill";
 console.log("Background script loaded.");
 
-// Improvement: Use arrow function for better readability
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "extractData" || message.action === "updateData") {
         console.log("Message received in background:", message);
@@ -14,11 +11,8 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 let tabs = await browser.tabs.query({ active: true, currentWindow: true });
                 let response = await browser.tabs.sendMessage(tabs[0].id, message);
                 sendResponse(response);
-            } catch (error) {
-                console.error("Error forwarding updateData:", error);
-            }
-        })();
-
+            });
+        });
         return true; // Required to use async sendResponse
     }
 

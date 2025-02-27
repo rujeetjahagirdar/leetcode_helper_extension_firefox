@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import browser from "webextension-polyfill";
 import './index.css';
+import config from "./config";
 
-const API_ENDPOINT = "http://localhost:5000/solve";
+// const API_ENDPOINT = "http://localhost:5000/solve";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -57,7 +58,7 @@ function App() {
       const payload = { ...response, apiKey: encryptedApiKey, model: selectedModel };
 
       // Call the backend API
-      const apiResponse = await fetch(API_ENDPOINT, {
+      const apiResponse = await fetch(config.apiEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

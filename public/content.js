@@ -1,109 +1,138 @@
-// import browser from "webextension-polyfill";
+// Content script loaded on the current URL
+
 console.log("Content script loaded on", window.location.href);
 
+/**
+ * Extracts problem statement and code snippet from the DOM.
+ * Uses optional chaining to avoid errors if elements are not found.
+ */
+const extractData = () => {
+  const problemStatement = document.querySelector('.elfjS[data-track-load="description_content"]')?.innerText || "Problem not found.";
+  const codeSnippet = document.querySelector('.view-lines.monaco-mouse-cursor-text')?.innerText || "Code snippet not found.";
+  return { problemStatement, codeSnippet };
+};
+
+/**
+ * Creates and displays the output widget on the page.
+ * @param {string} output - The raw output string.
+ * @param {object} outputJson - The parsed JSON object containing details.
+ */
+const createWidget = (output, outputJson) => {
+  // Create main widget container
+  const widget = document.createElement("div");
+  widget.id = "output-widget";
+  widget.className = "fixed bottom-4 right-4 w-[600px] h-[300px] bg-gray-100 text-black border border-gray-400 shadow-lg z-50 rounded-lg overflow-hidden flex flex-col";
+
+  // Create the top button strip
+  const buttonStrip = document.createElement("div");
+  buttonStrip.className = "flex justify-between items-center bg-blue-500 p-2";
+  buttonStrip.style.backgroundColor = '#2b7fff';
+
+  // Copy button
+  const copyButton = document.createElement("button");
+  copyButton.innerText = "COPY";
+  copyButton.className = "bg-blue-500 text-black font-bold py-2 px-6 rounded hover:bg-green-700 transition-all shadow-md";
+  copyButton.style.backgroundColor = '#1447e6';
+  copyButton.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(outputJson.code);
+      widget.remove();
+      alert("Code copied to clipboard!");
+    } catch (err) {
+      console.error("Failed to copy text:", err);
+    }
+  });
+
+  // Close button
+  const closeButton = document.createElement("button");
+  closeButton.innerText = "CLOSE";
+  closeButton.className = "bg-red-500 text-black font-bold py-2 px-6 rounded hover:bg-red-700 transition-all shadow-md";
+  closeButton.style.backgroundColor = "#c10007";
+  closeButton.addEventListener("click", () => widget.remove());
+
+  // Append buttons to the strip
+  buttonStrip.appendChild(copyButton);
+  buttonStrip.appendChild(closeButton);
+
+  // Create the accordion container for output sections
+  const accordionContainer = document.createElement("div");
+  accordionContainer.className = "p-4 flex-1 overflow-auto";
+
+  // Define sections to display in the widget
+  const sections = [
+    // { title: "Original Output", content: output },
+    // { title: "outputJson Output", content: outputJson},
+    { title: "Problem Intuition", content: outputJson.intuition },
+    { title: "Algorithm", content: outputJson.algorithm },
+    { title: "Code Solution", content: outputJson.code }
+  ];
+
+  // Create each accordion item
+  sections.forEach((section, index) => {
+    const accordionItem = document.createElement("div");
+    accordionItem.className = "border border-gray-300 rounded mb-2";
+    accordionItem.style.backgroundColor = '#2b7fff';
+
+    const header = document.createElement("div");
+    header.className = "bg-gray-300 px-4 py-2 cursor-pointer";
+    header.innerHTML = `<span>${section.title}</span> <span id="icon-${index}" class="text-lg font-bold">+</span>`;
+
+    const contentBlock = document.createElement("div");
+    contentBlock.className = "hidden bg-gray-800 text-white p-4";
+    contentBlock.style.backgroundColor = "#595756";
+    contentBlock.style.color = "#ffffff";
+    contentBlock.innerText = section.content;
+
+    // Toggle accordion visibility on header click
+    header.addEventListener("click", () => {
+      contentBlock.classList.toggle("hidden");
+      const icon = document.getElementById(`icon-${index}`);
+      icon.innerText = contentBlock.classList.contains("hidden") ? "+" : "−";
+    });
+
+    accordionItem.appendChild(header);
+    accordionItem.appendChild(contentBlock);
+    accordionContainer.appendChild(accordionItem);
+  });
+
+  // Assemble the widget and add it to the DOM
+  widget.appendChild(buttonStrip);
+  widget.appendChild(accordionContainer);
+  document.body.appendChild(widget);
+};
+
+// Listen for messages from the extension's runtime
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if(message.action === "extractData") {
-        const problemStatement = document.querySelector('.elfjS[data-track-load="description_content"]').innerText;
-        const codeSnippet = document.querySelector('.view-lines.monaco-mouse-cursor-text').innerText;
-        console.log("Message received in content script:", message);
-        // console.log("Extracted Problem:",problemStatement);
-        // console.log("Extracted Code:",codeSnippet);
+  if (message.action === "extractData") {
+    console.log("Message received in content script:", message);
+    const data = extractData();
+    sendResponse(data);
+  } else if (message.action === "updateData") {
+    console.log("UpdateData action received in content script.");
 
-        sendResponse({problemStatement, codeSnippet});
+    const output = message.outputCode;
+    if (!output) {
+      console.error("Received empty output.");
+      return;
     }
 
-    if (message.action === "updateData") {
-        console.log("Output received in content.js....");
-        let output = message.outputCode;
-        // Function to remove the first and last line
-        const removeFirstAndLastLine = (input) => {
-            const lines = input.split("\n");
-            return lines.slice(1, -1).join("\n");
-        };
-
-        // Clean up the output
-        output = removeFirstAndLastLine(output);
-        // Create a floating widget
-        let widget = document.getElementById("output-widget");
-        if (!widget) {
-            widget = document.createElement("div");
-            widget.id = "output-widget";
-            widget.style.position = "fixed";
-            widget.style.bottom = "10px";
-            widget.style.right = "10px";
-            widget.style.width = "500px";
-            widget.style.height = "200px";
-            widget.style.backgroundColor = "#f9f9f9"; // Light background
-            widget.style.color = "#000"; // Black text for contrast
-            widget.style.border = "1px solid #ccc";
-            widget.style.boxShadow = "0px 4px 8px rgba(0, 0, 0, 0.2)";
-            widget.style.zIndex = 1000;
-            widget.style.padding = "10px";
-            widget.style.overflowY = "auto";
-            widget.style.fontFamily = "monospace"; // Monospace font for code
-            widget.style.fontSize = "14px";
-
-            // Add a Close button
-            const closeButton = document.createElement("button");
-            closeButton.innerText = "Close";
-            closeButton.style.position = "absolute";
-            closeButton.style.top = "5px";
-            closeButton.style.right = "5px";
-            closeButton.style.backgroundColor = "#f44336";
-            closeButton.style.color = "white";
-            closeButton.style.border = "none";
-            closeButton.style.padding = "5px 10px";
-            closeButton.style.cursor = "pointer";
-            closeButton.style.borderRadius = "4px";
-            closeButton.addEventListener("click", () => {
-                widget.remove(); // Remove the widget from the DOM
-            });
-
-            // Add a Copy button
-            const copyButton = document.createElement("button");
-            copyButton.innerText = "Copy";
-            copyButton.style.position = "absolute";
-            copyButton.style.top = "5px";
-            copyButton.style.right = "60px";
-            copyButton.style.backgroundColor = "#4CAF50";
-            copyButton.style.color = "white";
-            copyButton.style.border = "none";
-            copyButton.style.padding = "5px 10px";
-            copyButton.style.cursor = "pointer";
-            copyButton.style.borderRadius = "4px";
-            copyButton.addEventListener("click", () => {
-                navigator.clipboard.writeText(output).then(() => {
-                    alert("Code copied to clipboard!");
-                }).catch((err) => {
-                    console.error("Failed to copy text:", err);
-                });
-            });
-
-            // Append buttons to the widget
-            widget.appendChild(closeButton);
-            widget.appendChild(copyButton);
-
-            // Add the widget to the DOM
-            document.body.appendChild(widget);
-        }
-
-        // Display the output in the widget
-        const content = document.createElement("pre");
-        content.style.marginTop = "40px";
-        content.style.whiteSpace = "pre-wrap"; // Handle long lines gracefully
-        content.style.color = "#000"; // Ensure text is visible
-        content.style.backgroundColor = "#f4f4f4"; // Light gray for code block
-        content.style.padding = "10px";
-        content.style.borderRadius = "4px";
-        content.style.overflowX = "auto"; // Horizontal scrolling for long lines
-
-        const codeBlock = document.createElement("code");
-        codeBlock.style.fontFamily = "monospace";
-        codeBlock.innerText = output;
-
-        content.appendChild(codeBlock);
-        widget.appendChild(content);
+    // Clean and parse the output JSON
+    let outputJsonStr = output.replace(/\n/g, "\\\\n");
+    let outputJson;
+    try {
+      outputJson = JSON.parse(outputJsonStr);
+    } catch (error) {
+      console.error("Error parsing output JSON:", error);
+      return;
     }
 
+    // Remove any existing widget before creating a new one
+    const existingWidget = document.getElementById("output-widget");
+    if (existingWidget) {
+      existingWidget.remove();
+    }
+
+    createWidget(output, outputJson);
+  }
 });
 

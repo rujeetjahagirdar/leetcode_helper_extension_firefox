@@ -4,23 +4,36 @@ from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from openai import OpenAI
+import base64
 
 
 app = Flask(__name__)
 CORS(app)
 load_dotenv()
 
-def call_llm(problem_statement, code_snippet):
-    prompt = """For following coding problem, give me most efficient but simple to understand
-              code considering all the edge cases. Also mention two lines in comment at bottom of the code
-              with first line as run time complexity and second line with space complexity like 
-              #Runtime Complexity: [mention runtime complexity of solution here]
-              #Space Complexity: [mention space complexity of solution here].
-              ALSO make sure to
-              not output any additional output or explanation so that I can directly execute the code output as it is.
-              Also make sure to not use any print statements.
-              Problem:{}
-              Code Snippet: {}.""".format(problem_statement, code_snippet)
+def call_llm(problem_statement, code_snippet, api, model):
+
+    prompt = """Following problem, use the given code snippet to write most efficient but simple to understand code considering all the edge cases.
+Give me output in three sections as follows:
+1.Intuition
+Give simple to understand intuition of how to solve the problem.
+2.Step by step algorithm
+Give a step by step algorithm. Make sure to number each step and output is in one continuous string.
+3.Code Solution
+Give code for above step by step algorithm. 
+Also make sure at the bottom of the code solution provide two comment lines describing complexities as follows:
+#Runtime Complexity: [mention run-time complexity here]
+#Space Complexity: [mention space complexity here].
+
+Ensure to follow following instructions exactly:
+-Make sure not to provide any additional comments or notes.
+-Make sure that entire output is in json parsable form.
+-Refer the following example for output format and make sure to follow exact this format:
+ {{\"intuition\": \"The idea is to sort the array in ascending order and then return it. However, we need to consider the constraint that |nums[i] - nums[j]| <= limit. We can achieve this by using a min-heap data structure to keep track of the smallest unsorted elements. The min-heap will store the indices of the elements in the array, along with the elements themselves. We will repeatedly pop the smallest element from the min-heap and swap it with the first unsorted element in the array. This process will continue until the entire array is sorted.\",\"algorithm\": \"1. Create a min-heap and push the indices and values of the array into the heap.2. Initialize an empty list to store the sorted array.3. While the heap is not empty, pop the smallest element from the heap and swap it with the first unsorted element in the array.4. Push the swapped element back into the heap.5. Repeat steps 3-4 until the heap is empty.6. Return the sorted array.\",\"code\": \"class Solution:\n    def lexicographicallySmallestArray(self, nums: List[int], limit: int) -> List[int]:\n        import heapq\n        heap = [(nums[i], i) for i in range(len(nums))]\n        heapq.heapify(heap)\n        result = []\n        while heap:\n            val, idx = heapq.heappop(heap)\n            result.append(val)\n            for i in range(len(nums)):\n                if nums[i] < val and abs(nums[i] - val) <= limit:\n                    heapq.heappush(heap, (nums[i], i))\n        return result\n#Runtime Complexity: O(n log n)\n#Space Complexity: O(n)\"}}
+-The json should be in one line only.
+
+Problem Statement:{}
+Code Snippet: {}""".format(problem_statement, code_snippet)
 
     print("####Promt is:\n", prompt)
     ############# ChatGPT ###############
@@ -38,16 +51,19 @@ def call_llm(problem_statement, code_snippet):
     ################# Hugging face ################
     client = OpenAI(
         base_url="https://api-inference.huggingface.co/v1/",
-        api_key=os.getenv("HF_API_KEY")
+        # api_key=os.getenv("HF_API_KEY")
+        api_key=api
     )
+
     chat_response = client.chat.completions.create(
-        model="meta-llama/Llama-3.2-3B-Instruct",
+        # model="meta-llama/Llama-3.2-3B-Instruct",
+        model=model,
         messages=[
-            {"role": "developer", "content": "You are an expert Software Developer."},
+            {"role": "system", "content": "You are an expert Software Developer."},
             {"role": "user", "content": prompt}
         ],
-        temperature=0.5,
-        top_p=0.7
+        temperature=0.0,
+        top_p=0.7,
     )
 
     print("#########Chat Response:\n",chat_response.choices[0].message.content)
@@ -64,28 +80,21 @@ def solve():  # put application's code here
     problemStatement = request_data.get("problemStatement")
     #get code snippet from request
     codeSnippet = request_data.get("codeSnippet")
+    enc_api_key = request_data.get("apiKey")
+    print("enc_api_key",enc_api_key)
+    txt_api_key = base64.b64decode(enc_api_key).decode('utf-8')
+    modelSelection = request_data.get("model")
     print("Problem Statement: ", problemStatement)
     print("Code Snippet: ", codeSnippet)
+    print("Plain text api = ", txt_api_key)
+    print("Model Selection= ", modelSelection)
     #get prompt
     #call openai api
     #return code retunred by openai api
 
-    # return jsonify({
-    #     "status": 'Success',
-    #     'outputCode': """```python
-    #                     class Solution:
-    #                         def twoSum(self, nums: List[int], target: int) -> List[int]:
-    #                             num_to_index = {}
-    #                             for i, num in enumerate(nums):
-    #                                 complement = target - num
-    #                                 if complement in num_to_index:
-    #                                     return [num_to_index[complement], i]
-    #                                 num_to_index[num] = i
-    #
-    #                     # Runtime Complexity: O(n)
-    #                     # Space Complexity: O(n)
-    # ```"""})
-    output_code = call_llm(problemStatement, codeSnippet)
+    output_code = call_llm(problemStatement, codeSnippet, txt_api_key, modelSelection)
+
+
     return jsonify({"status":'Success', 'outputCode':output_code})
 
 
